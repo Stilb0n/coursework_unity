@@ -1,16 +1,13 @@
-using UnityEngine;
+using System.Collections;
 
-public class IVisualizerAPI : MonoBehaviour
+public interface IVisualizerAPI
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    // Поменять местами два столбика
+    IEnumerator SwapBars(int i, int j);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // Подсветить два столбика (например, при сравнении)
+    void Highlight(int i, int j);
+
+    // Можно добавить метод для установки нового значения (опционально)
+    // void SetValue(int index, int value);
 }

@@ -1,16 +1,36 @@
+using System.Collections;
 using UnityEngine;
 
-public class BubbleSorter : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+
+// Реализация пузырьковой сортировки
+public class BubbleSorter : ISorter
+{
+    public IEnumerator Sort(int[] array, IVisualizerAPI visualizer)
     {
-        
+        int n = array.Length;
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                // Подсветка сравниваемых элементов
+                visualizer.Highlight(j, j + 1);
+
+                // Если нужно поменять местами
+                if (array[j] > array[j + 1])
+                {
+                    // Меняем данные в массиве
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+
+                    // Анимация swap
+                    yield return visualizer.SwapBars(j, j + 1);
+                }
+
+                // Небольшая пауза, чтобы видеть шаг
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
     }
 }
