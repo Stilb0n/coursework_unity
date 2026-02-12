@@ -30,7 +30,7 @@ if (visualizer.barPrefab == null)
 }
     visualizer.CreateBars(values);
 
-    sorter = new BubbleSorter();
+    sorter = new SelectionSorter();
     StartCoroutine(sorter.Sort(values, visualizer));
 
     }
