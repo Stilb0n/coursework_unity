@@ -32,6 +32,8 @@ public class SelectionSorter : ISorter
 
                 yield return visualizer.SwapBars(i, minIndex);
             }
+            visualizer.MarkSorted(i);
         }
+        visualizer.MarkSorted(array.Length - 1);
     }
 }

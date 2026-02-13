@@ -7,7 +7,7 @@ public class ArrayVisualizer : MonoBehaviour, IVisualizerAPI
     public GameObject barPrefab;
     public float barWidth = 0.8f;
     public float spacing = 0.1f;
-
+    private bool[] sorted;
     private List<GameObject> bars = new List<GameObject>();
     private List<Color> originalColors = new List<Color>();
     // Создание столбиков
@@ -18,7 +18,7 @@ public class ArrayVisualizer : MonoBehaviour, IVisualizerAPI
         for (int i = 0; i < values.Length; i++)
         {
             GameObject bar = Instantiate(barPrefab, transform);
-
+            sorted = new bool[values.Length];
             // Создаем уникальный материал для этого кубика
             Renderer renderer = bar.GetComponent<Renderer>();
              renderer.material = new Material(renderer.sharedMaterial);
@@ -38,6 +38,12 @@ public class ArrayVisualizer : MonoBehaviour, IVisualizerAPI
 
             bars.Add(bar);
         }
+    }
+
+    public void MarkSorted(int index)
+    {
+        sorted[index] = true;
+        bars[index].GetComponent<Renderer>().material.color = Color.green;
     }
 
     // Корректный плавный обмен кубиков
@@ -84,15 +90,21 @@ public class ArrayVisualizer : MonoBehaviour, IVisualizerAPI
 
     // Подсветка двух элементов с автоматическим сбросом остальных
 
-     public void Highlight(int i, int j)
+    public void Highlight(int i, int j)
     {
         for (int k = 0; k < bars.Count; k++)
         {
-            bars[k].GetComponent<Renderer>().material.color = originalColors[k];
+            if (sorted[k])
+                bars[k].GetComponent<Renderer>().material.color = Color.green;
+            else
+                bars[k].GetComponent<Renderer>().material.color = originalColors[k];
         }
 
-        bars[i].GetComponent<Renderer>().material.color = Color.blue;
-        bars[j].GetComponent<Renderer>().material.color = Color.blue;
+        if (!sorted[i])
+            bars[i].GetComponent<Renderer>().material.color = Color.blue;
+
+        if (!sorted[j])
+            bars[j].GetComponent<Renderer>().material.color = Color.blue;
     }
 
     void ClearBars()
