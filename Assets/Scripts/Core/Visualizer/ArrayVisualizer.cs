@@ -14,11 +14,10 @@ public class ArrayVisualizer : MonoBehaviour, IVisualizerAPI
     public void CreateBars(int[] values)
     {
         ClearBars();
-
+        sorted = new bool[values.Length];
         for (int i = 0; i < values.Length; i++)
         {
-            GameObject bar = Instantiate(barPrefab, transform);
-            sorted = new bool[values.Length];
+            GameObject bar = Instantiate(barPrefab, transform);           
             // Создаем уникальный материал для этого кубика
             Renderer renderer = bar.GetComponent<Renderer>();
              renderer.material = new Material(renderer.sharedMaterial);
@@ -106,6 +105,30 @@ public class ArrayVisualizer : MonoBehaviour, IVisualizerAPI
         if (!sorted[j])
             bars[j].GetComponent<Renderer>().material.color = Color.blue;
     }
+
+public void HighlightCompare(int i, int j)
+{
+    if (!sorted[i])
+        bars[i].GetComponent<Renderer>().material.color = Color.red;
+
+    if (!sorted[j])
+        bars[j].GetComponent<Renderer>().material.color = Color.red;
+}
+
+    public void HighlightActive(int index)
+{
+    if (!sorted[index])
+        bars[index].GetComponent<Renderer>().material.color = Color.yellow;
+}
+
+public void ClearHighlights()
+{
+    for (int i = 0; i < bars.Count; i++)
+    {
+        if (!sorted[i])
+            bars[i].GetComponent<Renderer>().material.color = originalColors[i];
+    }
+}
 
     void ClearBars()
     {
