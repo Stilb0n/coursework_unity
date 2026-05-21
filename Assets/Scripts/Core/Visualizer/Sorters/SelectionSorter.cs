@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SelectionSorter : ISorter
 {
-    public IEnumerator Sort(int[] array, IVisualizerAPI visualizer)
+    public IEnumerator Sort(int[] array, IVisualizerAPI visualizer, IOperationCounter counter)
     {
         int n = array.Length;
 

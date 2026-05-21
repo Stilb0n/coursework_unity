@@ -3,7 +3,7 @@ using UnityEngine;
 public class SortController : MonoBehaviour
 {
     public ArrayVisualizer visualizer; // перетащи сюда объект визуализатора в Inspector
-
+    public OperationCounter counter;    
     private ISorter sorter;   // выбранный алгоритм сортировки
     private int[] values;     // массив чисел
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,8 +30,9 @@ if (visualizer.barPrefab == null)
 }
     visualizer.CreateBars(values);
 
-    sorter = new InsertionSorter();
-    StartCoroutine(sorter.Sort(values, visualizer));
+    sorter = new BubbleSorter();
+    counter.ResetCounter();
+    StartCoroutine(sorter.Sort(values, visualizer,counter));
 
     }
 
