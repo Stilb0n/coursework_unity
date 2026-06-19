@@ -9,12 +9,12 @@ public class SelectionSorter : ISorter
 
         for (int i = 0; i < n - 1; i++)
         {
-            int minIndex = i;
-
+            int minIndex = i;	    
             // ищем минимум
             for (int j = i + 1; j < n; j++)
             {
-                visualizer.Highlight(minIndex, j);
+                counter.IncrementComparisons();
+		visualizer.Highlight(minIndex, j);
                 yield return new WaitForSeconds(0.1f);
 
                 if (array[j] < array[minIndex])
@@ -29,6 +29,8 @@ public class SelectionSorter : ISorter
                 int temp = array[i];
                 array[i] = array[minIndex];
                 array[minIndex] = temp;
+		
+		counter.IncrementSwaps();
 
                 yield return visualizer.SwapBars(i, minIndex);
             }
