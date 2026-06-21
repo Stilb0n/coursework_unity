@@ -9,9 +9,9 @@ public interface IVisualizerAPI
     void Highlight(int i, int j);
     // Перекрасить отсортированные столбики.
     void MarkSorted(int index);
-    void HighlightActive(int index);
-    void HighlightCompare(int i, int j);
-    void ClearHighlights();
+    // void HighlightActive(int index);
+    // void HighlightCompare(int i, int j);
+    // void ClearHighlights();
     // Можно добавить метод для установки нового значения (опционально)
     // void SetValue(int index, int value);
 }
