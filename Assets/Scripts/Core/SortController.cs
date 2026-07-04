@@ -13,7 +13,7 @@ public class SortController : MonoBehaviour
         GenerateArray();
     }
 
-private void GenerateArray() 
+public void GenerateArray() 
     {
     int size = 20;
     values = new int[size];

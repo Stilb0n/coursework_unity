@@ -1,31 +1,39 @@
-public IEnumerator Sort(int[] array, IVisualizerAPI visualizer, IOperationCounter counter)
+using System.Collections;
+using UnityEngine;
+
+public class InsertionSorter : ISorter
 {
-    int n = array.Length;
-
-    for (int i = 1; i < n; i++)
+    public IEnumerator Sort(int[] array,
+                            IVisualizerAPI visualizer,
+                            IOperationCounter counter)
     {
-        int j = i;
+        int n = array.Length;
 
-        while (j > 0)
+        for (int i = 1; i < n; i++)
         {
-            counter.IncrementComparisons();
+            int j = i;
 
-            visualizer.Highlight(j - 1, j);
+            while (j > 0)
+            {
+                counter.IncrementComparisons();
 
-            if (array[j - 1] <= array[j])
-                break;
+                visualizer.Highlight(j - 1, j);
 
-            int temp = array[j];
-            array[j] = array[j - 1];
-            array[j - 1] = temp;
+                if (array[j - 1] <= array[j])
+                    break;
 
-            counter.IncrementSwaps();
+                int temp = array[j];
+                array[j] = array[j - 1];
+                array[j - 1] = temp;
 
-            yield return visualizer.SwapBars(j - 1, j);
+                counter.IncrementSwaps();
 
-            yield return new WaitForSeconds(0.1f);
+                yield return visualizer.SwapBars(j - 1, j);
 
-            j--;
+                yield return new WaitForSeconds(0.1f);
+
+                j--;
+            }
         }
     }
 }
