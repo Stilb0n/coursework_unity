@@ -1,11 +1,19 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 public class SortController : MonoBehaviour
 {
     public ArrayVisualizer visualizer; // перетащить сюда объект визуализатора в Inspector!!!
     public OperationCounter counter;    
     public TMP_Dropdown algorithmDropdown;
     private ISorter sorter;   // выбранный алгоритм сортировки
+    private bool isSorting = false;
+    private IEnumerator RunSorting()
+{
+    yield return StartCoroutine(sorter.Sort(values, visualizer, counter));
+
+    isSorting = false;
+}
     private int[] values;     // массив чисел
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -15,6 +23,8 @@ public class SortController : MonoBehaviour
 
 public void GenerateArray() 
     {
+    if (isSorting)
+    return;
     int size = 20;
     values = new int[size];
 
@@ -39,6 +49,10 @@ public void GenerateArray()
     }
 public void StartSorting()
 {
+        if (isSorting)
+        return;
+
+    isSorting = true;
     switch (algorithmDropdown.value)
     {
         case 0:
@@ -58,7 +72,7 @@ public void StartSorting()
 
     counter.ResetCounter();
 
-    StartCoroutine(sorter.Sort(values, visualizer, counter));
+    StartCoroutine(RunSorting());
 }
     // Update is called once per frame
     void Update()
