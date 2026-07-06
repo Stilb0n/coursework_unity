@@ -5,6 +5,7 @@ public class SortController : MonoBehaviour
 {
     public ArrayVisualizer visualizer; // перетащить сюда объект визуализатора в Inspector!!!
     public OperationCounter counter;    
+    public TextMeshProUGUI algorithmInfoText;
     public TMP_Dropdown algorithmDropdown;
     private ISorter sorter;   // выбранный алгоритм сортировки
     private bool isSorting = false;
@@ -18,6 +19,7 @@ public class SortController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {    
+        UpdateAlgorithmInfo();
         GenerateArray();
     }
 
@@ -73,6 +75,39 @@ public void StartSorting()
     counter.ResetCounter();
 
     StartCoroutine(RunSorting());
+}
+
+public void UpdateAlgorithmInfo()
+{
+    switch (algorithmDropdown.value)
+    {
+        case 0:
+            algorithmInfoText.text =
+                "Bubble Sort\n\n" +
+                "Лучший случай: O(n)\n" +
+                "Средний случай: O(n²)\n" +
+                "Худший случай: O(n²)\n\n" +
+                "Устойчивая: Да";
+            break;
+
+        case 1:
+            algorithmInfoText.text =
+                "Insertion Sort\n\n" +
+                "Лучший случай: O(n)\n" +
+                "Средний случай: O(n²)\n" +
+                "Худший случай: O(n²)\n\n" +
+                "Устойчивая: Да";
+            break;
+
+        case 2:
+            algorithmInfoText.text =
+                "Selection Sort\n\n" +
+                "Лучший случай: O(n²)\n" +
+                "Средний случай: O(n²)\n" +
+                "Худший случай: O(n²)\n\n" +
+                "Устойчивая: Нет";
+            break;
+    }
 }
     // Update is called once per frame
     void Update()
