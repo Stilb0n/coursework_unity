@@ -9,11 +9,13 @@ public class SortController : MonoBehaviour
     public TMP_Dropdown algorithmDropdown;
     private ISorter sorter;   // выбранный алгоритм сортировки
     private bool isSorting = false;
+    private Coroutine sortingCoroutine;
     private IEnumerator RunSorting()
 {
     yield return StartCoroutine(sorter.Sort(values, visualizer, counter));
 
     isSorting = false;
+    sortingCoroutine = null;
 }
     private int[] values;     // массив чисел
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -74,9 +76,23 @@ public void StartSorting()
 
     counter.ResetCounter();
 
-    StartCoroutine(RunSorting());
+    sortingCoroutine = StartCoroutine(RunSorting());
 }
 
+public void ResetSorting()
+{
+    if (sortingCoroutine != null)
+    {
+        StopAllCoroutines();
+        sortingCoroutine = null;
+    }
+
+    isSorting = false;
+
+    counter.ResetCounter();
+
+    GenerateArray();
+}
 public void UpdateAlgorithmInfo()
 {
     switch (algorithmDropdown.value)
