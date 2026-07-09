@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 public class SortController : MonoBehaviour
@@ -10,6 +11,8 @@ public class SortController : MonoBehaviour
     private ISorter sorter;   // выбранный алгоритм сортировки
     private bool isSorting = false;
     private Coroutine sortingCoroutine;
+    public Slider arraySizeSlider;
+    public TextMeshProUGUI arraySizeText;   
     private IEnumerator RunSorting()
 {
     yield return StartCoroutine(sorter.Sort(values, visualizer, counter));
@@ -22,6 +25,7 @@ public class SortController : MonoBehaviour
     void Start()
     {    
         UpdateAlgorithmInfo();
+        UpdateArraySize();
         GenerateArray();
     }
 
@@ -29,7 +33,7 @@ public void GenerateArray()
     {
     if (isSorting)
     return;
-    int size = 20;
+    int size = (int)arraySizeSlider.value;
     values = new int[size];
 
     for (int i = 0; i < size; i++)
@@ -51,6 +55,11 @@ public void GenerateArray()
 
     visualizer.CreateBars(values);
     }
+
+    public void UpdateArraySize()
+{
+    arraySizeText.text = "Размер массива: " + (int)arraySizeSlider.value;
+}
 public void StartSorting()
 {
         if (isSorting)
@@ -99,7 +108,7 @@ public void UpdateAlgorithmInfo()
     {
         case 0:
             algorithmInfoText.text =
-                "Bubble Sort\n\n" +
+                "Bubble Sort\n" +
                 "Лучший случай: O(n)\n" +
                 "Средний случай: O(n²)\n" +
                 "Худший случай: O(n²)\n\n" +
@@ -108,7 +117,7 @@ public void UpdateAlgorithmInfo()
 
         case 1:
             algorithmInfoText.text =
-                "Insertion Sort\n\n" +
+                "Insertion Sort\n" +
                 "Лучший случай: O(n)\n" +
                 "Средний случай: O(n²)\n" +
                 "Худший случай: O(n²)\n\n" +
@@ -117,7 +126,7 @@ public void UpdateAlgorithmInfo()
 
         case 2:
             algorithmInfoText.text =
-                "Selection Sort\n\n" +
+                "Selection Sort\n" +
                 "Лучший случай: O(n²)\n" +
                 "Средний случай: O(n²)\n" +
                 "Худший случай: O(n²)\n\n" +

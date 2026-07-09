@@ -30,7 +30,8 @@ public class BubbleSorter : ISorter
                 }
 
                 // Небольшая пауза, чтобы видеть шаг
-                yield return new WaitForSeconds(0.1f);
+               if (AnimationSettings.Delay > 0)
+                yield return new WaitForSeconds(AnimationSettings.Delay);
             }
         }
     }

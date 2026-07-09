@@ -15,7 +15,8 @@ public class SelectionSorter : ISorter
             {
                 counter.IncrementComparisons();
 		visualizer.Highlight(minIndex, j);
-                yield return new WaitForSeconds(0.1f);
+                if (AnimationSettings.Delay > 0)
+                 yield return new WaitForSeconds(AnimationSettings.Delay);   
 
                 if (array[j] < array[minIndex])
                 {

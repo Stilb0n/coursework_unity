@@ -30,7 +30,8 @@ public class InsertionSorter : ISorter
 
                 yield return visualizer.SwapBars(j - 1, j);
 
-                yield return new WaitForSeconds(0.1f);
+                if (AnimationSettings.Delay > 0)
+                     yield return new WaitForSeconds(AnimationSettings.Delay);
 
                 j--;
             }
