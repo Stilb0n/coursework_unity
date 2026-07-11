@@ -6,6 +6,8 @@ public class SortController : MonoBehaviour
 {
     public ArrayVisualizer visualizer; // перетащить сюда объект визуализатора в Inspector!!!
     public OperationCounter counter;    
+    public TextMeshProUGUI sortingTimeText;
+    private float startTime;
     public TextMeshProUGUI algorithmInfoText;
     public TMP_Dropdown algorithmDropdown;
     private ISorter sorter;   // выбранный алгоритм сортировки
@@ -16,7 +18,8 @@ public class SortController : MonoBehaviour
     private IEnumerator RunSorting()
 {
     yield return StartCoroutine(sorter.Sort(values, visualizer, counter));
-
+    float elapsed = Time.time - startTime;
+    sortingTimeText.text = "Время сортировки: " + elapsed.ToString("0.00") + " с";
     isSorting = false;
     sortingCoroutine = null;
 }
@@ -84,6 +87,8 @@ public void StartSorting()
     }
 
     counter.ResetCounter();
+    startTime = Time.time;
+    sortingTimeText.text = "Время сортировки: "; 
 
     sortingCoroutine = StartCoroutine(RunSorting());
 }
@@ -99,6 +104,7 @@ public void ResetSorting()
     isSorting = false;
 
     counter.ResetCounter();
+    sortingTimeText.text = "Время сортировки: ";
 
     GenerateArray();
 }
