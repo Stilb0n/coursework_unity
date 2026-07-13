@@ -14,6 +14,7 @@ public class SortController : MonoBehaviour
     private bool isSorting = false;
     private Coroutine sortingCoroutine;
     public Slider arraySizeSlider;
+    public TMP_Dropdown arrayTypeDropdown;
     public TextMeshProUGUI arraySizeText;   
     private IEnumerator RunSorting()
 {
@@ -39,10 +40,25 @@ public void GenerateArray()
     int size = (int)arraySizeSlider.value;
     values = new int[size];
 
-    for (int i = 0; i < size; i++)
-    {
-        values[i] = Random.Range(1, 21);
-    }
+
+switch (arrayTypeDropdown.value)
+{
+    case 0: // Random
+        GenerateRandomArray(size);
+        break;
+
+    case 1: // Almost Sorted
+        GenerateAlmostSortedArray(size);
+        break;
+
+    case 2: // Reverse Sorted
+        GenerateReverseSortedArray(size);
+        break;
+
+    case 3: // Few Unique
+        GenerateFewUniqueArray(size);
+        break;
+}
 
     if (visualizer == null)
     {
@@ -63,6 +79,39 @@ public void GenerateArray()
 {
     arraySizeText.text = "Размер массива: " + (int)arraySizeSlider.value;
 }
+private void GenerateRandomArray(int size)
+{
+    for (int i = 0; i < size; i++)
+        values[i] = Random.Range(1, 21);
+}
+
+private void GenerateFewUniqueArray(int size)
+{
+    for (int i = 0; i < size; i++)
+        values[i] = Random.Range(1, 6);
+}
+
+private void GenerateAlmostSortedArray(int size)
+{
+    for (int i = 0; i < size; i++)
+        values[i] = i + 1;
+
+    // Сделаем несколько случайных обменов
+    for (int i = 0; i < size / 10; i++)
+    {
+        int a = Random.Range(0, size);
+        int b = Random.Range(0, size);
+
+        (values[a], values[b]) = (values[b], values[a]);
+    }
+}
+
+private void GenerateReverseSortedArray(int size)
+{
+    for (int i = 0; i < size; i++)
+        values[i] = size - i;
+}
+
 public void StartSorting()
 {
         if (isSorting)
