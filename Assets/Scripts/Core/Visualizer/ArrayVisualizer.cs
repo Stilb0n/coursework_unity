@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class ArrayVisualizer : MonoBehaviour, IVisualizerAPI
 {
     public GameObject barPrefab;
+    public TextMeshProUGUI statusText;
     public float barWidth = 0.8f;
     public float spacing = 0.1f;
     private bool[] sorted;
@@ -38,7 +39,10 @@ public class ArrayVisualizer : MonoBehaviour, IVisualizerAPI
             bars.Add(bar);
         }
     }
-
+public void ShowStatus(string text)
+{
+    statusText.text = text;
+}
     public void MarkSorted(int index)
     {
         sorted[index] = true;

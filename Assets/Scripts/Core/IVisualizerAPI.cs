@@ -8,6 +8,7 @@ public interface IVisualizerAPI
     // Подсветить два столбика (например, при сравнении)
     void Highlight(int i, int j);
     // Перекрасить отсортированные столбики.
+    void ShowStatus(string text);
     void MarkSorted(int index);
     // void HighlightActive(int index);
     // void HighlightCompare(int i, int j);

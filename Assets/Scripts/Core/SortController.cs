@@ -14,8 +14,14 @@ public class SortController : MonoBehaviour
     private bool isSorting = false;
     private Coroutine sortingCoroutine;
     public Slider arraySizeSlider;
+    public TextMeshProUGUI statusText;
     public TMP_Dropdown arrayTypeDropdown;
     public TextMeshProUGUI arraySizeText;   
+
+    public void SetStatus(string message)
+{
+    statusText.text = message;
+}
     private IEnumerator RunSorting()
 {
     yield return StartCoroutine(sorter.Sort(values, visualizer, counter));
