@@ -9,8 +9,18 @@ public class ArrayVisualizer : MonoBehaviour, IVisualizerAPI
     public float barWidth = 0.8f;
     public float spacing = 0.1f;
     private bool[] sorted;
+    public TextMeshProUGUI[] pseudoCodeLines;
     private List<GameObject> bars = new List<GameObject>();
     private List<Color> originalColors = new List<Color>();
+    public void HighlightPseudoCodeLine(int line)
+{
+    for (int i = 0; i < pseudoCodeLines.Length; i++)
+    {
+        pseudoCodeLines[i].color = Color.white;
+    }
+
+    pseudoCodeLines[line].color = Color.yellow;
+}
     // Создание столбиков
     public void CreateBars(int[] values)
     {

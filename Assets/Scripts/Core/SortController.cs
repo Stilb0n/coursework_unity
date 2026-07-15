@@ -37,6 +37,7 @@ public class SortController : MonoBehaviour
         UpdateAlgorithmInfo();
         UpdateArraySize();
         GenerateArray();
+        visualizer.HighlightPseudoCodeLine(2);
     }
 
 public void GenerateArray() 
