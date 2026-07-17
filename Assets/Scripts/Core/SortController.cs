@@ -175,6 +175,13 @@ public void UpdateAlgorithmInfo()
                 "Средний случай: O(n²)\n" +
                 "Худший случай: O(n²)\n\n" +
                 "Устойчивая: Да";
+                visualizer.SetPseudoCode(new string[]
+{
+    "for i = 0 .. n-2",
+    "for j = 0 .. n-i-2",
+    "if A[j] > A[j+1]",
+    "swap(A[j], A[j+1])"
+});
             break;
 
         case 1:
@@ -184,6 +191,13 @@ public void UpdateAlgorithmInfo()
                 "Средний случай: O(n²)\n" +
                 "Худший случай: O(n²)\n\n" +
                 "Устойчивая: Да";
+                visualizer.SetPseudoCode(new string[]
+{
+    "for i = 1 .. n-1",
+    "j = i",
+    "while j > 0",
+    "swap(A[j], A[j-1])"
+});
             break;
 
         case 2:
@@ -193,6 +207,13 @@ public void UpdateAlgorithmInfo()
                 "Средний случай: O(n²)\n" +
                 "Худший случай: O(n²)\n\n" +
                 "Устойчивая: Нет";
+                visualizer.SetPseudoCode(new string[]
+{
+    "for i = 0 .. n-2",
+    "найти минимум",
+    "swap(A[i], A[min])",
+    "следующий проход"
+});
             break;
     }
 }

@@ -21,6 +21,13 @@ public class ArrayVisualizer : MonoBehaviour, IVisualizerAPI
 
     pseudoCodeLines[line].color = Color.yellow;
 }
+public void SetPseudoCode(string[] lines)
+{
+    for (int i = 0; i < pseudoCodeLines.Length; i++)
+    {
+        pseudoCodeLines[i].text = lines[i];
+    }
+}
     // Создание столбиков
     public void CreateBars(int[] values)
     {
