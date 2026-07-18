@@ -11,6 +11,8 @@ public class InsertionSorter : ISorter
 
         for (int i = 1; i < n; i++)
         {
+            while (SortingState.IsPaused)
+            yield return null;
             visualizer.HighlightPseudoCodeLine(0);
             yield return new WaitForSeconds(0.2f);
 

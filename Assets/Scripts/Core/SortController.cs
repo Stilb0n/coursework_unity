@@ -18,6 +18,10 @@ public class SortController : MonoBehaviour
     public TMP_Dropdown arrayTypeDropdown;
     public TextMeshProUGUI arraySizeText;   
 
+public void TogglePause()
+{
+    SortingState.IsPaused = !SortingState.IsPaused;
+}
     public void SetStatus(string message)
 {
     statusText.text = message;

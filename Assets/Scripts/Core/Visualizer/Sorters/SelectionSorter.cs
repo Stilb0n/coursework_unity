@@ -9,6 +9,8 @@ public class SelectionSorter : ISorter
 
         for (int i = 0; i < n - 1; i++)
         {
+            while (SortingState.IsPaused)
+            yield return null;
             visualizer.HighlightPseudoCodeLine(0);
             yield return new WaitForSeconds(0.2f);
 
