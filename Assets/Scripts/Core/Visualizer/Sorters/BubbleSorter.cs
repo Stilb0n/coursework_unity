@@ -16,7 +16,7 @@ public class BubbleSorter : ISorter
 
         for (int i = 0; i < n - 1; i++)
         {
-            yield return WaitIfPaused();
+            yield return SortingHelper.WaitForNextStep();
 
             visualizer.HighlightPseudoCodeLine(0);
             yield return new WaitForSeconds(0.2f);
@@ -27,7 +27,7 @@ public class BubbleSorter : ISorter
 
             for (int j = 0; j < n - i - 1; j++)
             {
-                yield return WaitIfPaused();
+                yield return SortingHelper.WaitForNextStep();
 
                 visualizer.HighlightPseudoCodeLine(1);
                 yield return new WaitForSeconds(0.2f);
@@ -54,7 +54,7 @@ public class BubbleSorter : ISorter
 
                     counter.IncrementSwaps();
 
-                    yield return WaitIfPaused();
+                    yield return SortingHelper.WaitForNextStep();
                     yield return visualizer.SwapBars(j, j + 1);
                 }
                 else
@@ -64,7 +64,7 @@ public class BubbleSorter : ISorter
                     );
                 }
 
-                yield return WaitIfPaused();
+                yield return SortingHelper.WaitForNextStep();
 
                 if (AnimationSettings.Delay > 0)
                     yield return new WaitForSeconds(AnimationSettings.Delay);
