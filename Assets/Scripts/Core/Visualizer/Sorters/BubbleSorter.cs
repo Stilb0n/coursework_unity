@@ -35,7 +35,7 @@ public class BubbleSorter : ISorter
                 counter.IncrementComparisons();
 
                 visualizer.Highlight(j, j + 1);
-
+                yield return SortingHelper.WaitForNextStep();
                 visualizer.HighlightPseudoCodeLine(2);
                 yield return new WaitForSeconds(0.2f);
 
@@ -44,7 +44,7 @@ public class BubbleSorter : ISorter
                     visualizer.ShowStatus(
                         $"Элемент {array[j]} больше элемента {array[j + 1]}, поэтому они меняются местами."
                     );
-
+                    yield return SortingHelper.WaitForNextStep();
                     visualizer.HighlightPseudoCodeLine(3);
                     yield return new WaitForSeconds(0.2f);
 
@@ -64,7 +64,7 @@ public class BubbleSorter : ISorter
                     );
                 }
 
-                yield return SortingHelper.WaitForNextStep();
+             //   yield return SortingHelper.WaitForNextStep();
 
                 if (AnimationSettings.Delay > 0)
                     yield return new WaitForSeconds(AnimationSettings.Delay);
