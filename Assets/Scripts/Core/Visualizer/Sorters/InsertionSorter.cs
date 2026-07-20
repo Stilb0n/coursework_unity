@@ -11,8 +11,9 @@ public class InsertionSorter : ISorter
 
         for (int i = 1; i < n; i++)
         {
-            while (SortingState.IsPaused)
+
             yield return null;
+            yield return SortingHelper.WaitForNextStep();
             visualizer.HighlightPseudoCodeLine(0);
             yield return new WaitForSeconds(0.2f);
 
@@ -21,12 +22,12 @@ public class InsertionSorter : ISorter
             );
 
             int j = i;
-
+            yield return SortingHelper.WaitForNextStep();
             visualizer.HighlightPseudoCodeLine(1);
             yield return new WaitForSeconds(0.2f);
 
             while (j > 0)
-            {
+            {   yield return SortingHelper.WaitForNextStep();
                 visualizer.HighlightPseudoCodeLine(2);
                 yield return new WaitForSeconds(0.2f);
 
@@ -45,7 +46,7 @@ public class InsertionSorter : ISorter
                 visualizer.ShowStatus(
                     $"Элемент {array[j]} меньше элемента {array[j - 1]}, выполняется обмен."
                 );
-
+                yield return SortingHelper.WaitForNextStep();
                 visualizer.HighlightPseudoCodeLine(3);
                 yield return new WaitForSeconds(0.2f);
 

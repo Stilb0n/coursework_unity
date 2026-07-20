@@ -9,8 +9,9 @@ public class SelectionSorter : ISorter
 
         for (int i = 0; i < n - 1; i++)
         {
-            while (SortingState.IsPaused)
+            
             yield return null;
+            yield return SortingHelper.WaitForNextStep();
             visualizer.HighlightPseudoCodeLine(0);
             yield return new WaitForSeconds(0.2f);
 
@@ -22,6 +23,7 @@ public class SelectionSorter : ISorter
 
             for (int j = i + 1; j < n; j++)
             {
+                yield return SortingHelper.WaitForNextStep();
                 visualizer.HighlightPseudoCodeLine(1);
                 yield return new WaitForSeconds(0.2f);
 
@@ -44,6 +46,7 @@ public class SelectionSorter : ISorter
 
             if (minIndex != i)
             {
+                yield return SortingHelper.WaitForNextStep();
                 visualizer.HighlightPseudoCodeLine(2);
                 yield return new WaitForSeconds(0.2f);
 
@@ -61,7 +64,7 @@ public class SelectionSorter : ISorter
             }
 
             visualizer.MarkSorted(i);
-
+            yield return SortingHelper.WaitForNextStep();
             visualizer.HighlightPseudoCodeLine(3);
             yield return new WaitForSeconds(0.2f);
 
