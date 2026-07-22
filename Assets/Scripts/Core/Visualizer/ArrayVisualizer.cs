@@ -12,20 +12,26 @@ public class ArrayVisualizer : MonoBehaviour, IVisualizerAPI
     public TextMeshProUGUI[] pseudoCodeLines;
     private List<GameObject> bars = new List<GameObject>();
     private List<Color> originalColors = new List<Color>();
-    public void HighlightPseudoCodeLine(int line)
+public void HighlightPseudoCodeLine(int line)
 {
+    Debug.Log("Подсветка псевдокода: " + line);
+
     for (int i = 0; i < pseudoCodeLines.Length; i++)
     {
         pseudoCodeLines[i].color = Color.white;
     }
 
-    pseudoCodeLines[line].color = Color.yellow;
+    if (line >= 0 && line < pseudoCodeLines.Length)
+        pseudoCodeLines[line].color = Color.yellow;
 }
 public void SetPseudoCode(string[] lines)
 {
     for (int i = 0; i < pseudoCodeLines.Length; i++)
     {
-        pseudoCodeLines[i].text = lines[i];
+        if (i < lines.Length)
+            pseudoCodeLines[i].text = lines[i];
+        else
+            pseudoCodeLines[i].text = "";
     }
 }
     // Создание столбиков

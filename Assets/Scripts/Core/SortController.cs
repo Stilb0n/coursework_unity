@@ -45,7 +45,7 @@ public void TogglePause()
         UpdateAlgorithmInfo();
         UpdateArraySize();
         GenerateArray();
-        visualizer.HighlightPseudoCodeLine(2);
+        visualizer.HighlightPseudoCodeLine(5);
     }
 
 public void GenerateArray() 
@@ -148,6 +148,10 @@ public void StartSorting()
             Debug.Log("Выбран SelectionSorter");
             sorter = new SelectionSorter();
             break;
+        case 3:
+           Debug.Log("Выбран Quick Sort");
+          sorter = new QuickSorter();
+            break;
     }
 
     counter.ResetCounter();
@@ -223,6 +227,24 @@ public void UpdateAlgorithmInfo()
     "следующий проход"
 });
             break;
+case 3:
+    algorithmInfoText.text =
+        "Quick Sort\n" +
+        "Лучший случай: O(n log n)\n" +
+        "Средний случай: O(n log n)\n" +
+        "Худший случай: O(n²)\n\n" +
+        "Устойчивая: Нет";
+
+                visualizer.SetPseudoCode(new string[]
+{
+        "if left >= right return\n" ,
+        "pivot = A[(left + right) / 2]\n" ,
+        "while i <= j\n" ,
+        "    обмен элементов\n" ,
+        "QuickSort(left, j)\n" ,
+        "QuickSort(i, right)"
+        });
+    break;
     }
 }
     // Update is called once per frame
