@@ -249,7 +249,25 @@ case 3:
         "QuickSort(i, right)"
         });
     break;
-    }
+    case 4:
+        algorithmInfoText.text =
+        "Merge Sort\n" +
+        "Лучший случай: O(n log n)\n" +
+        "Средний случай: O(n log n)\n" +
+        "Худший случай: O(n log n)\n\n" +
+        "Устойчивая: Да";
+    visualizer.SetPseudoCode(new string[]
+{
+    "if left >= right return",
+    "mid = (left + right) / 2",
+    "MergeSort(left, mid)",
+    "MergeSort(mid + 1, right)",
+    "Merge(left, mid, right)",
+    "while i <= mid && j <= right",
+    "сравнение элементов",
+    "запись элемента"
+});
+    break;    }
 }
     // Update is called once per frame
     void Update()
