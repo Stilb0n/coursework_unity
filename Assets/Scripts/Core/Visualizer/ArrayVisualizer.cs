@@ -24,6 +24,27 @@ public void HighlightPseudoCodeLine(int line)
     if (line >= 0 && line < pseudoCodeLines.Length)
         pseudoCodeLines[line].color = Color.yellow;
 }
+public IEnumerator UpdateBar(int index, int newValue)
+{
+    GameObject bar = bars[index];
+
+    // Подсветить изменяемый элемент
+    bar.GetComponent<Renderer>().material.color = Color.red;
+
+    // Изменить высоту
+    bar.transform.localScale = new Vector3(barWidth, newValue, barWidth);
+
+    // Оставить нижнюю грань на земле
+    Vector3 pos = bar.transform.localPosition;
+    bar.transform.localPosition = new Vector3(pos.x, newValue / 2f, pos.z);
+
+    if (AnimationSettings.Delay > 0)
+        yield return new WaitForSeconds(AnimationSettings.Delay);
+
+    // Вернуть обычный цвет
+    if (!sorted[index])
+        bar.GetComponent<Renderer>().material.color = originalColors[index];
+}
 public void SetPseudoCode(string[] lines)
 {
     for (int i = 0; i < pseudoCodeLines.Length; i++)

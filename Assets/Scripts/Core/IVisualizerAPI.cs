@@ -7,6 +7,7 @@ public interface IVisualizerAPI
 
     // Подсветить два столбика (например, при сравнении)
     void Highlight(int i, int j);
+    IEnumerator UpdateBar(int index, int newValue);
     void HighlightPseudoCodeLine(int line);
     // Перекрасить отсортированные столбики.
     void ShowStatus(string text);

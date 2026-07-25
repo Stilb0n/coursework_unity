@@ -152,6 +152,10 @@ public void StartSorting()
            Debug.Log("Выбран Quick Sort");
           sorter = new QuickSorter();
             break;
+        case 4:
+            Debug.Log("Выбран Merge Sort");
+          sorter = new MergeSorter();
+            break;
     }
 
     counter.ResetCounter();
