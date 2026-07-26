@@ -9,6 +9,7 @@ public interface IVisualizerAPI
     void Highlight(int i, int j);
     IEnumerator UpdateBar(int index, int newValue);
     void HighlightPseudoCodeLine(int line);
+    void HighlightHeap(int root, int left, int right);
     // Перекрасить отсортированные столбики.
     void ShowStatus(string text);
     void SetPseudoCode(string[] lines);

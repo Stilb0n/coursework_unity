@@ -24,6 +24,29 @@ public void HighlightPseudoCodeLine(int line)
     if (line >= 0 && line < pseudoCodeLines.Length)
         pseudoCodeLines[line].color = Color.yellow;
 }
+public void HighlightHeap(int root, int left, int right)
+{
+    // Сначала возвращаем обычные цвета
+    for (int i = 0; i < bars.Count; i++)
+    {
+        if (sorted[i])
+            bars[i].GetComponent<Renderer>().material.color = Color.green;
+        else
+            bars[i].GetComponent<Renderer>().material.color = originalColors[i];
+    }
+
+    // Корень — жёлтый
+    if (root >= 0 && root < bars.Count && !sorted[root])
+        bars[root].GetComponent<Renderer>().material.color = Color.yellow;
+
+    // Левый потомок — красный
+    if (left >= 0 && left < bars.Count && !sorted[left])
+        bars[left].GetComponent<Renderer>().material.color = Color.red;
+
+    // Правый потомок — красный
+    if (right >= 0 && right < bars.Count && !sorted[right])
+        bars[right].GetComponent<Renderer>().material.color = Color.red;
+}
 public IEnumerator UpdateBar(int index, int newValue)
 {
     GameObject bar = bars[index];
