@@ -8,7 +8,11 @@ public class BenchmarkManager
 
         // Здесь позже будем запускать все алгоритмы
             results.Add(BubbleBenchmark.Run(originalArray));
-
+            results.Add(InsertionBenchmark.Run(originalArray));
+            results.Add(SelectionBenchmark.Run(originalArray));
+            results.Add(QuickBenchmark.Run(originalArray));
+            results.Add(MergeBenchmark.Run(originalArray));
+            results.Add(HeapBenchmark.Run(originalArray));
         return results;
     }
 }

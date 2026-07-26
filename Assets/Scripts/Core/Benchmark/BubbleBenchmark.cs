@@ -40,7 +40,7 @@ public static class BubbleBenchmark
             AlgorithmName = "Bubble Sort",
             Comparisons = comparisons,
             Swaps = swaps,
-            TimeMs = stopwatch.ElapsedMilliseconds
+            TimeMs = (float)stopwatch.Elapsed.TotalMilliseconds
         };
     }
 }
