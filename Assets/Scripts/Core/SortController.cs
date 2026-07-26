@@ -156,6 +156,10 @@ public void StartSorting()
             Debug.Log("Выбран Merge Sort");
           sorter = new MergeSorter();
             break;
+            case 5:
+                        Debug.Log("Выбран Heap Sort");
+             sorter = new HeapSorter();
+                 break;
     }
 
     counter.ResetCounter();
@@ -267,7 +271,25 @@ case 3:
     "сравнение элементов",
     "запись элемента"
 });
-    break;    }
+    break; 
+    case 5:
+    algorithmInfoText.text =
+        "Heap Sort\n" +
+        "Лучший случай: O(n log n)\n" +
+        "Средний случай: O(n log n)\n" +
+        "Худший случай: O(n log n)\n\n" +
+        "Устойчивая: Нет";
+
+    visualizer.SetPseudoCode(new string[]
+    {
+        "Построить максимальную кучу",
+        "Поменять корень с последним элементом",
+        "Уменьшить размер кучи",
+        "Восстановить свойства кучи",
+        "Повторять, пока куча не пуста"
+    });
+
+    break;   }
 }
     // Update is called once per frame
     void Update()
