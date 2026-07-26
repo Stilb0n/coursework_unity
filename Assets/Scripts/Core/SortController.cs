@@ -2,10 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
 public class SortController : MonoBehaviour
 {
     public ArrayVisualizer visualizer; // перетащить сюда объект визуализатора в Inspector!!!
-    public OperationCounter counter;    
+    public OperationCounter counter;  
+
     public TextMeshProUGUI sortingTimeText;
     private float startTime;
     public TextMeshProUGUI algorithmInfoText;
@@ -21,6 +23,22 @@ public void StepForward()
 {
     if (SortingState.IsPaused)
         SortingState.StepRequested = true;
+}
+public void CompareAlgorithms()
+{
+    BenchmarkManager manager = new BenchmarkManager();
+
+    List<SortBenchmarkResult> results = manager.RunAll(values);
+
+    foreach (var result in results)
+    {
+        Debug.Log(
+            $"{result.AlgorithmName}\n" +
+            $"Время: {result.TimeMs} ms\n" +
+            $"Сравнения: {result.Comparisons}\n" +
+            $"Обмены: {result.Swaps}"
+        );
+    }
 }
 public void TogglePause()
 {
@@ -54,7 +72,7 @@ public void GenerateArray()
     return;
     int size = (int)arraySizeSlider.value;
     values = new int[size];
-
+    
 
 switch (arrayTypeDropdown.value)
 {
