@@ -171,6 +171,10 @@ public void StartSorting()
                         Debug.Log("Выбран Heap Sort");
              sorter = new HeapSorter();
                  break;
+                 case 6:
+                                         Debug.Log("Выбран ShellSorter ");
+    sorter = new ShellSorter();
+    break;
     }
 
     counter.ResetCounter();
@@ -300,8 +304,27 @@ case 3:
 "Переместить максимум в конец",
 "Уменьшить размер кучи"
     });
+        break; 
+case 6:
+    algorithmInfoText.text =
+        "Shell Sort\n" +
+        "Лучший случай: O(n log n)\n" +
+        "Средний случай: ≈ O(n^1.5)\n" +
+        "Худший случай: O(n²)\n\n" +
+        "Устойчивая: Нет";
 
-    break;   }
+    visualizer.SetPseudoCode(new string[]
+    {
+        "gap = n / 2",
+        "Пока gap > 0",
+        "Взять следующий элемент",
+        "Сравнить элементы через gap",
+        "Сдвинуть элементы вправо",
+        "Вставить элемент на место",
+        "gap = gap / 2"
+    });
+
+    break;  }
 }
     // Update is called once per frame
     void Update()

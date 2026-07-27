@@ -13,6 +13,7 @@ public class BenchmarkManager
             results.Add(QuickBenchmark.Run(originalArray));
             results.Add(MergeBenchmark.Run(originalArray));
             results.Add(HeapBenchmark.Run(originalArray));
+            results.Add(ShellSortBenchmark.Run(originalArray));
         return results;
     }
 }
