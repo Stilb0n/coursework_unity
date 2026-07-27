@@ -7,6 +7,7 @@ public class SortController : MonoBehaviour
 {
     public ArrayVisualizer visualizer; // перетащить сюда объект визуализатора в Inspector!!!
     public OperationCounter counter;  
+    public BenchmarkUI benchmarkUI;
 
     public TextMeshProUGUI sortingTimeText;
     private float startTime;
@@ -30,15 +31,7 @@ public void CompareAlgorithms()
 
     List<SortBenchmarkResult> results = manager.RunAll(values);
 
-    foreach (var result in results)
-    {
-        Debug.Log(
-            $"{result.AlgorithmName}\n" +
-            $"Время: {result.TimeMs} ms\n" +
-            $"Сравнения: {result.Comparisons}\n" +
-            $"Обмены: {result.Swaps}"
-        );
-    }
+    benchmarkUI.ShowResults(results);
 }
 public void TogglePause()
 {
