@@ -14,6 +14,7 @@ public class BenchmarkManager
             results.Add(MergeBenchmark.Run(originalArray));
             results.Add(HeapBenchmark.Run(originalArray));
             results.Add(ShellSortBenchmark.Run(originalArray));
+            results.Add(CountingSortBenchmark.Run(originalArray));
         return results;
     }
 }

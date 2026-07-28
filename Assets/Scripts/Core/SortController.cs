@@ -29,7 +29,7 @@ public void CompareAlgorithms()
 {
     BenchmarkManager manager = new BenchmarkManager();
 
-    List<SortBenchmarkResult> results = manager.RunAll(values);
+    List<SortBenchmarkResult> results = manager.RunAll(originalValues);
 
     benchmarkUI.ShowResults(results);
 }
@@ -50,6 +50,7 @@ public void TogglePause()
     sortingCoroutine = null;
 }
     private int[] values;     // массив чисел
+    private int[] originalValues;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {    
@@ -97,7 +98,7 @@ switch (arrayTypeDropdown.value)
         Debug.LogError("barPrefab не назначен!");
         return;
     }
-
+    originalValues = (int[])values.Clone();
     visualizer.CreateBars(values);
     }
 
@@ -175,9 +176,15 @@ public void StartSorting()
                                          Debug.Log("Выбран ShellSorter ");
     sorter = new ShellSorter();
     break;
+    case 7:
+            Debug.Log("Выбран SelectionSorter");
+            sorter = new CountingSorter();
+            break;
     }
 
     counter.ResetCounter();
+    values = (int[])originalValues.Clone();
+    visualizer.CreateBars(values);
     startTime = Time.time;
     sortingTimeText.text = "Время сортировки: "; 
 
@@ -322,6 +329,24 @@ case 6:
         "Сдвинуть элементы вправо",
         "Вставить элемент на место",
         "gap = gap / 2"
+    });
+
+    break;case 7:
+    algorithmInfoText.text =
+        "Counting Sort\n" +
+        "Лучший случай: O(n + k)\n" +
+        "Средний случай: O(n + k)\n" +
+        "Худший случай: O(n + k)\n\n" +
+        "Устойчивая: Да";
+
+    visualizer.SetPseudoCode(new string[]
+    {
+        "Найти максимальный элемент",
+        "Создать массив count[]",
+        "Подсчитать количество каждого значения",
+        "Вычислить префиксные суммы",
+        "Записать элементы в выходной массив",
+        "Скопировать результат обратно"
     });
 
     break;  }

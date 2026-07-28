@@ -34,7 +34,7 @@ public static class BubbleBenchmark
 
         stopwatch.Stop();
 
-
+        UnityEngine.Debug.Log($"Bubble: comparisons={comparisons}, swaps={swaps}");
         return new SortBenchmarkResult
         {
             AlgorithmName = "Bubble Sort",
