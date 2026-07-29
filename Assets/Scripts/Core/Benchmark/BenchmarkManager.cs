@@ -15,6 +15,7 @@ public class BenchmarkManager
             results.Add(HeapBenchmark.Run(originalArray));
             results.Add(ShellSortBenchmark.Run(originalArray));
             results.Add(CountingSortBenchmark.Run(originalArray));
+            results.Add(RadixSortBenchmark.Run(originalArray));
         return results;
     }
 }

@@ -177,8 +177,11 @@ public void StartSorting()
     sorter = new ShellSorter();
     break;
     case 7:
-            Debug.Log("Выбран SelectionSorter");
+            Debug.Log("Выбран CountingSorter");
             sorter = new CountingSorter();
+            break;case 8:
+            Debug.Log("Выбран RadixSorter");
+            sorter = new RadixSorter();
             break;
     }
 
@@ -347,6 +350,24 @@ case 6:
         "Вычислить префиксные суммы",
         "Записать элементы в выходной массив",
         "Скопировать результат обратно"
+    });
+
+    break;case 8:
+    algorithmInfoText.text =
+        "Radix Sort\n" +
+        "Лучший случай: O(d(n + k))\n" +
+        "Средний случай: O(d(n + k))\n" +
+        "Худший случай: O(d(n + k))\n\n" +
+        "Устойчивая: Да";
+
+    visualizer.SetPseudoCode(new string[]
+    {
+        "Найти максимальный элемент",
+        "Для каждого разряда",
+        "Выполнить Counting Sort",
+        "Перейти к следующему разряду",
+        "Повторить до максимального",
+        "Массив отсортирован"
     });
 
     break;  }
