@@ -182,6 +182,9 @@ public void StartSorting()
             break;case 8:
             Debug.Log("Выбран RadixSorter");
             sorter = new RadixSorter();
+            break;case 9:
+            Debug.Log("Выбран RadixSorterMSD");
+            sorter = new RadixMSDSorter();
             break;
     }
 
@@ -367,6 +370,24 @@ case 6:
         "Выполнить Counting Sort",
         "Перейти к следующему разряду",
         "Повторить до максимального",
+        "Массив отсортирован"
+    });
+
+    break;case 9:
+    algorithmInfoText.text =
+        "Radix Sort (MSD)\n" +
+        "Лучший случай: O(d(n + k))\n" +
+        "Средний случай: O(d(n + k))\n" +
+        "Худший случай: O(d(n + k))\n\n" +
+        "Устойчивая: Да";
+
+    visualizer.SetPseudoCode(new string[]
+    {
+        "Найти старший разряд",
+        "Разделить элементы по текущему разряду",
+        "Распределить элементы по корзинам",
+        "Объединить корзины обратно",
+        "Рекурсивно сортировать каждую корзину",
         "Массив отсортирован"
     });
 
