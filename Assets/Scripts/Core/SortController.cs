@@ -185,7 +185,10 @@ public void StartSorting()
             break;case 9:
             Debug.Log("Выбран RadixSorterMSD");
             sorter = new RadixMSDSorter();
-            break;
+            break;case 10:
+    Debug.Log("Выбран Cocktail Shaker Sort");
+    sorter = new CocktailShakerSorter();
+    break;
     }
 
     counter.ResetCounter();
@@ -389,6 +392,24 @@ case 6:
         "Объединить корзины обратно",
         "Рекурсивно сортировать каждую корзину",
         "Массив отсортирован"
+    });
+
+    break;case 10:
+    algorithmInfoText.text =
+        "Cocktail Shaker Sort\n" +
+        "Лучший случай: O(n)\n" +
+        "Средний случай: O(n²)\n" +
+        "Худший случай: O(n²)\n\n" +
+        "Устойчивая: Да";
+
+    visualizer.SetPseudoCode(new string[]
+    {
+        "Идти слева направо",
+        "Сравнить соседние элементы",
+        "Обменять при необходимости",
+        "Идти справа налево",
+        "Повторять пока есть обмены",
+        "Сортировка завершена"
     });
 
     break;  }
