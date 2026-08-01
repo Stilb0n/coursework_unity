@@ -18,6 +18,7 @@ public class BenchmarkManager
             results.Add(RadixSortBenchmark.Run(originalArray));
             results.Add(RadixMSDSortBenchmark.Run(originalArray));
             results.Add(CocktailShakerSortBenchmark.Run(originalArray));
+            results.Add(GnomeSortBenchmark.Run(originalArray));
         return results;
     }
 }

@@ -8,7 +8,7 @@ public class SortController : MonoBehaviour
     public ArrayVisualizer visualizer; // перетащить сюда объект визуализатора в Inspector!!!
     public OperationCounter counter;  
     public BenchmarkUI benchmarkUI;
-
+    [SerializeField] private int benchmarkArraySize = 10000;    
     public TextMeshProUGUI sortingTimeText;
     private float startTime;
     public TextMeshProUGUI algorithmInfoText;
@@ -27,9 +27,11 @@ public void StepForward()
 }
 public void CompareAlgorithms()
 {
+    int[] benchmarkArray = GenerateBenchmarkArray(10000);
+
     BenchmarkManager manager = new BenchmarkManager();
 
-    List<SortBenchmarkResult> results = manager.RunAll(originalValues);
+    var results = manager.RunAll(benchmarkArray);
 
     benchmarkUI.ShowResults(results);
 }
@@ -59,7 +61,43 @@ public void TogglePause()
         GenerateArray();
         visualizer.HighlightPseudoCodeLine(5);
     }
+private int[] GenerateBenchmarkArray(int size)
+{
+    int[] array = new int[size];
 
+    switch (arrayTypeDropdown.value)
+    {
+        case 0:
+            for (int i = 0; i < size; i++)
+                array[i] = Random.Range(1, size + 1);
+            break;
+
+        case 1:
+            for (int i = 0; i < size; i++)
+                array[i] = i + 1;
+
+            for (int i = 0; i < size / 10; i++)
+            {
+                int a = Random.Range(0, size);
+                int b = Random.Range(0, size);
+
+                (array[a], array[b]) = (array[b], array[a]);
+            }
+            break;
+
+        case 2:
+            for (int i = 0; i < size; i++)
+                array[i] = size - i;
+            break;
+
+        case 3:
+            for (int i = 0; i < size; i++)
+                array[i] = Random.Range(1, 6);
+            break;
+    }
+
+    return array;
+}
 public void GenerateArray() 
     {
     if (isSorting)
@@ -188,6 +226,9 @@ public void StartSorting()
             break;case 10:
     Debug.Log("Выбран Cocktail Shaker Sort");
     sorter = new CocktailShakerSorter();
+    break;case 11:
+    Debug.Log("Выбран Gnome Sort");
+    sorter = new GnomeSorter();
     break;
     }
 
@@ -409,6 +450,24 @@ case 6:
         "Обменять при необходимости",
         "Идти справа налево",
         "Повторять пока есть обмены",
+        "Сортировка завершена"
+    });
+
+    break;case 11:
+    algorithmInfoText.text =
+        "Gnome Sort\n" +
+        "Лучший случай: O(n)\n" +
+        "Средний случай: O(n²)\n" +
+        "Худший случай: O(n²)\n\n" +
+        "Устойчивая: Да";
+
+    visualizer.SetPseudoCode(new string[]
+    {
+        "Начать со второго элемента",
+        "Сравнить соседние элементы",
+        "Если порядок верный — идти вперёд",
+        "Иначе выполнить обмен",
+        "Сдвинуться назад",
         "Сортировка завершена"
     });
 

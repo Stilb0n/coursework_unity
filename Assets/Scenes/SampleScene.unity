@@ -3829,6 +3829,9 @@ MonoBehaviour:
     - m_Text: CocktailShakerSorter
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
+    - m_Text: GnomeSorter
+      m_Image: {fileID: 0}
+      m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -3931,6 +3934,7 @@ MonoBehaviour:
   visualizer: {fileID: 432037014}
   counter: {fileID: 571342767}
   benchmarkUI: {fileID: 135973504}
+  benchmarkArraySize: 10000
   sortingTimeText: {fileID: 403962238}
   algorithmInfoText: {fileID: 192212828}
   algorithmDropdown: {fileID: 848115414}
