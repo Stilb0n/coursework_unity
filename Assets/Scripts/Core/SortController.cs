@@ -181,7 +181,12 @@ public void StartSorting()
 {
         if (isSorting)
         return;
-
+if (algorithmDropdown.value == 12 && values.Length > 10)
+{
+    visualizer.ShowStatus("Bogo Sort доступен только для массивов до 10 элементов.");
+    Debug.LogWarning("Bogo Sort доступен только для массивов до 10 элементов.");
+    return;
+}
     isSorting = true;
     switch (algorithmDropdown.value)
     {
@@ -229,6 +234,9 @@ public void StartSorting()
     break;case 11:
     Debug.Log("Выбран Gnome Sort");
     sorter = new GnomeSorter();
+    break;case 12:
+    Debug.Log("Выбран Bogo Sort");
+    sorter = new BogoSorter();
     break;
     }
 
@@ -468,6 +476,24 @@ case 6:
         "Если порядок верный — идти вперёд",
         "Иначе выполнить обмен",
         "Сдвинуться назад",
+        "Сортировка завершена"
+    });
+
+    break;case 12:
+    algorithmInfoText.text =
+        "Bogo Sort\n" +
+        "Лучший случай: O(n)\n" +
+        "Средний случай: O((n+1)!)\n" +
+        "Худший случай: Бесконечность\n\n" +
+        "Устойчивая: Нет";
+
+    visualizer.SetPseudoCode(new string[]
+    {
+        "Проверить, отсортирован ли массив",
+        "Если нет — случайно перемешать",
+        "Повторять проверку",
+        "Повторять до сортировки",
+        "Или остановиться по таймеру",
         "Сортировка завершена"
     });
 
