@@ -237,6 +237,9 @@ if (algorithmDropdown.value == 12 && values.Length > 10)
     break;case 12:
     Debug.Log("Выбран Bogo Sort");
     sorter = new BogoSorter();
+    break;case 13:
+    Debug.Log("Выбран std::stable_sort");
+    sorter = new StableSorter();
     break;
     }
 
@@ -494,6 +497,24 @@ case 6:
         "Повторять проверку",
         "Повторять до сортировки",
         "Или остановиться по таймеру",
+        "Сортировка завершена"
+    });
+
+    break;case 13:
+    algorithmInfoText.text =
+        "std::stable_sort (Adaptive Merge Sort)\n" +
+        "Лучший случай: O(n log n)\n" +
+        "Средний случай: O(n log n)\n" +
+        "Худший случай: O(n log n)\n\n" +
+        "Устойчивая: Да";
+
+    visualizer.SetPseudoCode(new string[]
+    {
+        "Разделить массив пополам",
+        "Рекурсивно отсортировать левую часть",
+        "Рекурсивно отсортировать правую часть",
+        "Слить две отсортированные части",
+        "Сохранять порядок одинаковых элементов",
         "Сортировка завершена"
     });
 

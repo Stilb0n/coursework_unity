@@ -19,6 +19,7 @@ public class BenchmarkManager
             results.Add(RadixMSDSortBenchmark.Run(originalArray));
             results.Add(CocktailShakerSortBenchmark.Run(originalArray));
             results.Add(GnomeSortBenchmark.Run(originalArray));
+            results.Add(StableSortBenchmark.Run(originalArray));
 if (originalArray.Length <= 8)
 {
     results.Add(BogoSortBenchmark.Run(originalArray));
