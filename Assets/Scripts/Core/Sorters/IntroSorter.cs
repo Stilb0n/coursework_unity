@@ -1,4 +1,5 @@
-/* using System.Collections;
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class IntroSorter : ISorter
@@ -11,112 +12,111 @@ public class IntroSorter : ISorter
     {
         visualizer.ShowStatus("Запуск Introsort.");
 
-        int depthLimit = 2 * Mathf.FloorToInt(Mathf.Log(array.Length, 2));
+        int depthLimit = 2 * (int)Math.Floor(Math.Log(array.Length, 2));
 
-        visualizer.HighlightPseudoCodeLine(0);
-
-        yield return SortingHelper.WaitForNextStep();
-
-        yield return IntroSort(array, 0, array.Length - 1,
-                               depthLimit,
-                               visualizer,
-                               counter);
+        yield return IntroSort(
+            array,
+            0,
+            array.Length - 1,
+            depthLimit,
+            visualizer,
+            counter
+        );
 
         for (int i = 0; i < array.Length; i++)
             visualizer.MarkSorted(i);
 
         visualizer.HighlightPseudoCodeLine(5);
-
         visualizer.ShowStatus("Introsort завершён.");
     }
 
-    private IEnumerator IntroSort(int[] array,
-                                  int left,
-                                  int right,
-                                  int depthLimit,
-                                  IVisualizerAPI visualizer,
-                                  IOperationCounter counter)
+    private IEnumerator IntroSort(
+        int[] array,
+        int left,
+        int right,
+        int depthLimit,
+        IVisualizerAPI visualizer,
+        IOperationCounter counter)
     {
-        if (left >= right)
-            yield break;
-
-        int size = right - left + 1;
-
-        //----------------------------------------------------
-        // Маленькие диапазоны -> Insertion Sort
-        //----------------------------------------------------
-
-        if (size <= INSERTION_THRESHOLD)
+        while (right - left > INSERTION_THRESHOLD)
         {
-            visualizer.HighlightPseudoCodeLine(1);
+            if (depthLimit == 0)
+            {
+                visualizer.HighlightPseudoCodeLine(2);
+                visualizer.ShowStatus("Переходим на Heap Sort.");
 
-            visualizer.ShowStatus(
-                "Маленький диапазон. Используем Insertion Sort."
+                yield return HeapSort(
+                    array,
+                    left,
+                    right,
+                    visualizer,
+                    counter
+                );
+
+                yield break;
+            }
+
+            depthLimit--;
+
+            visualizer.HighlightPseudoCodeLine(0);
+
+            int pivot = 0;
+
+            yield return Partition(
+                array,
+                left,
+                right,
+                visualizer,
+                counter,
+                p => pivot = p
             );
 
-            yield return SortingHelper.WaitForNextStep();
-
-            yield return Insertion(array,
-                                   left,
-                                   right,
-                                   visualizer,
-                                   counter);
-
-            yield break;
-        }
-
-        //----------------------------------------------------
-        // Глубина закончилась -> Heap Sort
-        //----------------------------------------------------
-
-        if (depthLimit == 0)
-        {
-            visualizer.HighlightPseudoCodeLine(2);
-
-            visualizer.ShowStatus(
-                "Достигнут предел глубины. Используем Heap Sort."
+            yield return IntroSort(
+                array,
+                pivot + 1,
+                right,
+                depthLimit,
+                visualizer,
+                counter
             );
 
-            yield return SortingHelper.WaitForNextStep();
-
-            yield return Heap(array,
-                              left,
-                              right,
-                              visualizer,
-                              counter);
-
-            yield break;
+            right = pivot - 1;
         }
-
-        //----------------------------------------------------
-        // Quick Sort
-        //----------------------------------------------------
 
         visualizer.HighlightPseudoCodeLine(3);
 
-        yield return SortingHelper.WaitForNextStep();
+        yield return InsertionSort(
+            array,
+            left,
+            right,
+            visualizer,
+            counter
+        );
+    }    private IEnumerator Partition(
+        int[] array,
+        int left,
+        int right,
+        IVisualizerAPI visualizer,
+        IOperationCounter counter,
+        Action<int> setPivot)
+    {
+        int pivot = array[right];
+        int i = left - 1;
 
-        int pivot = array[(left + right) / 2];
+        visualizer.HighlightPseudoCodeLine(1);
 
-        int i = left;
-        int j = right;
-
-        while (i <= j)
+        for (int j = left; j < right; j++)
         {
-            while (array[i] < pivot)
+            visualizer.Highlight(j, right);
+
+            counter.IncrementComparisons();
+
+            yield return SortingHelper.WaitForNextStep();
+
+            if (array[j] <= pivot)
             {
-                counter.IncrementComparisons();
                 i++;
-            }
 
-            while (array[j] > pivot)
-            {
-                counter.IncrementComparisons();
-                j--;
-            }
-
-            if (i <= j)
-            {
                 if (i != j)
                 {
                     int temp = array[i];
@@ -126,31 +126,159 @@ public class IntroSorter : ISorter
                     counter.IncrementSwaps();
 
                     yield return visualizer.SwapBars(i, j);
-                }
 
-                i++;
-                j--;
+                    yield return SortingHelper.WaitForNextStep();
+                }
             }
         }
 
-        visualizer.HighlightPseudoCodeLine(4);
+        if (i + 1 != right)
+        {
+            int temp = array[i + 1];
+            array[i + 1] = array[right];
+            array[right] = temp;
 
-        yield return SortingHelper.WaitForNextStep();
+            counter.IncrementSwaps();
 
-        if (left < j)
-            yield return IntroSort(array,
-                                   left,
-                                   j,
-                                   depthLimit - 1,
-                                   visualizer,
-                                   counter);
+            yield return visualizer.SwapBars(i + 1, right);
 
-        if (i < right)
-            yield return IntroSort(array,
-                                   i,
-                                   right,
-                                   depthLimit - 1,
-                                   visualizer,
-                                   counter);
+            yield return SortingHelper.WaitForNextStep();
+        }
+
+        setPivot(i + 1);
     }
-    */
+
+    private IEnumerator InsertionSort(
+        int[] array,
+        int left,
+        int right,
+        IVisualizerAPI visualizer,
+        IOperationCounter counter)
+    {
+        for (int i = left + 1; i <= right; i++)
+        {
+            int key = array[i];
+            int j = i - 1;
+
+            while (j >= left)
+            {
+                counter.IncrementComparisons();
+
+                visualizer.Highlight(j, j + 1);
+
+                yield return SortingHelper.WaitForNextStep();
+
+                if (array[j] <= key)
+                    break;
+
+                array[j + 1] = array[j];
+
+                counter.IncrementSwaps();
+
+                yield return visualizer.UpdateBar(j + 1, array[j]);
+
+                j--;
+            }
+
+            array[j + 1] = key;
+
+            yield return visualizer.UpdateBar(j + 1, key);
+        }
+    }    private IEnumerator HeapSort(
+        int[] array,
+        int left,
+        int right,
+        IVisualizerAPI visualizer,
+        IOperationCounter counter)
+    {
+        int size = right - left + 1;
+
+        // Построение кучи
+        for (int i = size / 2 - 1; i >= 0; i--)
+        {
+            yield return Heapify(
+                array,
+                size,
+                i,
+                left,
+                visualizer,
+                counter
+            );
+        }
+
+        // Извлечение максимума
+        for (int i = size - 1; i > 0; i--)
+        {
+            int temp = array[left];
+            array[left] = array[left + i];
+            array[left + i] = temp;
+
+            counter.IncrementSwaps();
+
+            yield return visualizer.SwapBars(left, left + i);
+
+            yield return SortingHelper.WaitForNextStep();
+
+            yield return Heapify(
+                array,
+                i,
+                0,
+                left,
+                visualizer,
+                counter
+            );
+        }
+    }
+
+    private IEnumerator Heapify(
+        int[] array,
+        int heapSize,
+        int root,
+        int offset,
+        IVisualizerAPI visualizer,
+        IOperationCounter counter)
+    {
+        while (true)
+        {
+            int largest = root;
+            int leftChild = 2 * root + 1;
+            int rightChild = 2 * root + 2;
+
+            if (leftChild < heapSize)
+            {
+                counter.IncrementComparisons();
+
+                if (array[offset + leftChild] > array[offset + largest])
+                    largest = leftChild;
+            }
+
+            if (rightChild < heapSize)
+            {
+                counter.IncrementComparisons();
+
+                if (array[offset + rightChild] > array[offset + largest])
+                    largest = rightChild;
+            }
+
+            if (largest == root)
+                yield break;
+
+            visualizer.Highlight(offset + root, offset + largest);
+
+            int temp = array[offset + root];
+            array[offset + root] = array[offset + largest];
+            array[offset + largest] = temp;
+
+            counter.IncrementSwaps();
+
+            yield return visualizer.SwapBars(
+                offset + root,
+                offset + largest
+            );
+
+            yield return SortingHelper.WaitForNextStep();
+
+            root = largest;
+        }
+    }
+}

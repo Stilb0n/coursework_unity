@@ -176,18 +176,33 @@ private void GenerateReverseSortedArray(int size)
     for (int i = 0; i < size; i++)
         values[i] = size - i;
 }
-
+private bool IsPowerOfTwo(int n)
+{
+    return n > 0 && (n & (n - 1)) == 0;
+}   
 public void StartSorting()
 {
-        if (isSorting)
+    if (isSorting)
         return;
-if (algorithmDropdown.value == 12 && values.Length > 10)
-{
-    visualizer.ShowStatus("Bogo Sort доступен только для массивов до 10 элементов.");
-    Debug.LogWarning("Bogo Sort доступен только для массивов до 10 элементов.");
-    return;
-}
+
+    // Ограничение для Bogo Sort
+    if (algorithmDropdown.value == 12 && values.Length > 10)
+    {
+        visualizer.ShowStatus("Bogo Sort доступен только для массивов до 10 элементов.");
+        Debug.LogWarning("Bogo Sort доступен только для массивов до 10 элементов.");
+        return;
+    }
+
+    // Ограничение для Bitonic Sort
+    if (algorithmDropdown.value == 14 && !IsPowerOfTwo(values.Length))
+    {
+        visualizer.ShowStatus("Bitonic Sort требует размер массива 2ⁿ.");
+        Debug.LogWarning("Bitonic Sort требует размер массива 2ⁿ.");
+        return;
+    }
+
     isSorting = true;
+
     switch (algorithmDropdown.value)
     {
         case 0:
@@ -196,58 +211,87 @@ if (algorithmDropdown.value == 12 && values.Length > 10)
             break;
 
         case 1:
-             Debug.Log("Выбран InsertionSorter");
+            Debug.Log("Выбран Insertion Sort");
             sorter = new InsertionSorter();
             break;
+
         case 2:
-            Debug.Log("Выбран SelectionSorter");
+            Debug.Log("Выбран Selection Sort");
             sorter = new SelectionSorter();
             break;
+
         case 3:
-           Debug.Log("Выбран Quick Sort");
-          sorter = new QuickSorter();
+            Debug.Log("Выбран Quick Sort");
+            sorter = new QuickSorter();
             break;
+
         case 4:
             Debug.Log("Выбран Merge Sort");
-          sorter = new MergeSorter();
+            sorter = new MergeSorter();
             break;
-            case 5:
-                        Debug.Log("Выбран Heap Sort");
-             sorter = new HeapSorter();
-                 break;
-                 case 6:
-                                         Debug.Log("Выбран ShellSorter ");
-    sorter = new ShellSorter();
-    break;
-    case 7:
-            Debug.Log("Выбран CountingSorter");
+
+        case 5:
+            Debug.Log("Выбран Heap Sort");
+            sorter = new HeapSorter();
+            break;
+
+        case 6:
+            Debug.Log("Выбран Shell Sort");
+            sorter = new ShellSorter();
+            break;
+
+        case 7:
+            Debug.Log("Выбран Counting Sort");
             sorter = new CountingSorter();
-            break;case 8:
-            Debug.Log("Выбран RadixSorter");
+            break;
+
+        case 8:
+            Debug.Log("Выбран Radix Sort (LSD)");
             sorter = new RadixSorter();
-            break;case 9:
-            Debug.Log("Выбран RadixSorterMSD");
+            break;
+
+        case 9:
+            Debug.Log("Выбран Radix Sort (MSD)");
             sorter = new RadixMSDSorter();
-            break;case 10:
-    Debug.Log("Выбран Cocktail Shaker Sort");
-    sorter = new CocktailShakerSorter();
-    break;case 11:
-    Debug.Log("Выбран Gnome Sort");
-    sorter = new GnomeSorter();
-    break;case 12:
-    Debug.Log("Выбран Bogo Sort");
-    sorter = new BogoSorter();
-    break;case 13:
-    Debug.Log("Выбран std::stable_sort");
-    sorter = new StableSorter();
-    break;
+            break;
+
+        case 10:
+            Debug.Log("Выбран Cocktail Shaker Sort");
+            sorter = new CocktailShakerSorter();
+            break;
+
+        case 11:
+            Debug.Log("Выбран Gnome Sort");
+            sorter = new GnomeSorter();
+            break;
+
+        case 12:
+            Debug.Log("Выбран Bogo Sort");
+            sorter = new BogoSorter();
+            break;
+
+        case 13:
+            Debug.Log("Выбран std::stable_sort");
+            sorter = new StableSorter();
+            break;
+
+        case 14:
+            Debug.Log("Выбран Bitonic Sort");
+            sorter = new BitonicSorter();
+            break;
+        case 15:
+            Debug.Log("Выбран std::sort (Introsort)");
+            sorter = new IntroSorter();
+            break;
     }
 
     counter.ResetCounter();
+
     values = (int[])originalValues.Clone();
     visualizer.CreateBars(values);
+
     startTime = Time.time;
-    sortingTimeText.text = "Время сортировки: "; 
+    sortingTimeText.text = "Время сортировки: ";
 
     sortingCoroutine = StartCoroutine(RunSorting());
 }
@@ -515,6 +559,42 @@ case 6:
         "Рекурсивно отсортировать правую часть",
         "Слить две отсортированные части",
         "Сохранять порядок одинаковых элементов",
+        "Сортировка завершена"
+    });
+
+    break;case 14:
+    algorithmInfoText.text =
+        "Bitonic Sort\n" +
+        "Лучший случай: O(n log² n)\n" +
+        "Средний случай: O(n log² n)\n" +
+        "Худший случай: O(n log² n)\n\n" +
+        "Устойчивая: Нет";
+
+    visualizer.SetPseudoCode(new string[]
+    {
+        "Разделить массив пополам",
+        "Построить битоническую последовательность",
+        "Сравнить элементы на расстоянии",
+        "Обменять при необходимости",
+        "Рекурсивно объединить части",
+        "Сортировка завершена"
+    });
+
+    break;case 15:
+    algorithmInfoText.text =
+        "std::sort (Introsort)\n" +
+        "Лучший случай: O(n log n)\n" +
+        "Средний случай: O(n log n)\n" +
+        "Худший случай: O(n log n)\n\n" +
+        "Устойчивая: Нет";
+
+    visualizer.SetPseudoCode(new string[]
+    {
+        "Начать с Quick Sort",
+        "Следить за глубиной рекурсии",
+        "Если глубина превышена — Heap Sort",
+        "Для маленьких частей — Insertion Sort",
+        "Продолжать рекурсивно",
         "Сортировка завершена"
     });
 
