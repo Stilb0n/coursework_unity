@@ -5,23 +5,30 @@ using TMPro;
 public class AnimationSettings : MonoBehaviour
 {
     public Slider speedSlider;
-    public TextMeshProUGUI sortSpeedText;   
-    public static float Delay = 0.1f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public TextMeshProUGUI sortSpeedText;
+
+    public static float Speed = 1f;
+
+    public static float Delay
+    {
+        get
+        {
+            if (Speed >= 50f)
+                return 0f;
+
+            return 0.2f / Speed;
+        }
+    }
+
     void Start()
     {
-    AnimationSettings.Delay = speedSlider.value; 
-    ChangeSpeed();   
+        Speed = speedSlider.value;
+        ChangeSpeed();
     }
 
     public void ChangeSpeed()
-{
-    AnimationSettings.Delay = speedSlider.value;
-    sortSpeedText.text = $"Скорость сортировки: {speedSlider.value:0.00}";
-}
-    // Update is called once per frame
-    void Update()
     {
-        
+        Speed = speedSlider.value;
+        sortSpeedText.text = $"Скорость сортировки: {Speed:0.0}x";
     }
 }

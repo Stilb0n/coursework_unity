@@ -19,7 +19,10 @@ public class BubbleSorter : ISorter
             yield return SortingHelper.WaitForNextStep();
 
             visualizer.HighlightPseudoCodeLine(0);
-            yield return new WaitForSeconds(0.2f);
+                    if (AnimationSettings.Delay > 0f)
+                    yield return new WaitForSeconds(AnimationSettings.Delay);
+                    else
+                    yield return null;
 
             visualizer.ShowStatus(
                 $"Начался проход {i + 1} из {n - 1}. Самый большой элемент постепенно перемещается в конец массива."
@@ -30,14 +33,20 @@ public class BubbleSorter : ISorter
                 yield return SortingHelper.WaitForNextStep();
 
                 visualizer.HighlightPseudoCodeLine(1);
-                yield return new WaitForSeconds(0.2f);
+                    if (AnimationSettings.Delay > 0f)
+                    yield return new WaitForSeconds(AnimationSettings.Delay);
+                    else
+                    yield return null;
 
                 counter.IncrementComparisons();
 
                 visualizer.Highlight(j, j + 1);
                 yield return SortingHelper.WaitForNextStep();
                 visualizer.HighlightPseudoCodeLine(2);
-                yield return new WaitForSeconds(0.2f);
+                    if (AnimationSettings.Delay > 0f)
+                    yield return new WaitForSeconds(AnimationSettings.Delay);
+                    else
+                    yield return null;
 
                 if (array[j] > array[j + 1])
                 {
@@ -46,7 +55,11 @@ public class BubbleSorter : ISorter
                     );
                     yield return SortingHelper.WaitForNextStep();
                     visualizer.HighlightPseudoCodeLine(3);
-                    yield return new WaitForSeconds(0.2f);
+                    if (AnimationSettings.Delay > 0f)
+                    yield return new WaitForSeconds(AnimationSettings.Delay);
+                    else
+                    yield return null;
+                    
 
                     int temp = array[j];
                     array[j] = array[j + 1];
