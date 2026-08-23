@@ -12,6 +12,8 @@ public class SortController : MonoBehaviour
     public TextMeshProUGUI sortingTimeText;
     private float startTime;
     public TextMeshProUGUI algorithmInfoText;
+    private float pausedTime;
+private float pauseStartTime;
     public TMP_Dropdown algorithmDropdown;
     private ISorter sorter;   // выбранный алгоритм сортировки
     private bool isSorting = false;
@@ -38,6 +40,15 @@ public void CompareAlgorithms()
 public void TogglePause()
 {
     SortingState.IsPaused = !SortingState.IsPaused;
+
+    if (SortingState.IsPaused)
+    {
+        pauseStartTime = Time.time;
+    }
+    else
+    {
+        pausedTime += Time.time - pauseStartTime;
+    }
 }
     public void SetStatus(string message)
 {
@@ -46,8 +57,7 @@ public void TogglePause()
     private IEnumerator RunSorting()
 {
     yield return StartCoroutine(sorter.Sort(values, visualizer, counter));
-    float elapsed = Time.time - startTime;
-    sortingTimeText.text = "Время сортировки: " + elapsed.ToString("0.00") + " с";
+
     isSorting = false;
     sortingCoroutine = null;
 }
@@ -290,8 +300,9 @@ public void StartSorting()
     values = (int[])originalValues.Clone();
     visualizer.CreateBars(values);
 
-    startTime = Time.time;
-    sortingTimeText.text = "Время сортировки: ";
+startTime = Time.time;
+pausedTime = 0f;
+sortingTimeText.text = "Время сортировки: 0.00 с";
 
     sortingCoroutine = StartCoroutine(RunSorting());
 }
@@ -305,7 +316,8 @@ public void ResetSorting()
     }
 
     isSorting = false;
-
+SortingState.IsPaused = false;
+pausedTime = 0f;
     counter.ResetCounter();
     sortingTimeText.text = "Время сортировки: ";
 
@@ -603,6 +615,21 @@ case 6:
     // Update is called once per frame
     void Update()
     {
-        
+    if (isSorting)
+    {
+        float elapsed;
+
+        if (SortingState.IsPaused)
+        {
+            elapsed = pauseStartTime - startTime - pausedTime;
+        }
+        else
+        {
+            elapsed = Time.time - startTime - pausedTime;
+        }
+
+        sortingTimeText.text =
+            "Время сортировки: " + elapsed.ToString("0.00") + " с";
+    }
     }
 }
