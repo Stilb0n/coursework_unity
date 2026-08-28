@@ -1852,6 +1852,7 @@ MonoBehaviour:
   barPrefab: {fileID: 4485469324443160662, guid: a71bf3ee0b6df544483974dc1845142f, type: 3}
   statusText: {fileID: 432633121}
   barWidth: 0.5
+  horizontalOffset: -10
   spacing: 0.1
   pseudoCodeLines:
   - {fileID: 1908474602}
@@ -4319,6 +4320,7 @@ MonoBehaviour:
   barPrefab: {fileID: 4485469324443160662, guid: a71bf3ee0b6df544483974dc1845142f, type: 3}
   statusText: {fileID: 0}
   barWidth: 0.5
+  horizontalOffset: -20
   spacing: 0.1
   pseudoCodeLines: []
 --- !u!1 &870146702

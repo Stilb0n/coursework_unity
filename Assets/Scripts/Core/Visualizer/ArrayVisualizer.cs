@@ -7,6 +7,7 @@ public class ArrayVisualizer : MonoBehaviour, IVisualizerAPI
     public GameObject barPrefab;
     public TextMeshProUGUI statusText;
     public float barWidth = 0.8f;
+    public float horizontalOffset = -999f; // но вообще это ничего не меняет
     public float spacing = 0.1f;
     private bool[] sorted;
     public TextMeshProUGUI[] pseudoCodeLines;
@@ -82,6 +83,8 @@ public void SetPseudoCode(string[] lines)
     public void CreateBars(int[] values)
     {
         ClearBars();
+           Debug.Log("Horizontal Offset = " + horizontalOffset);
+
         sorted = new bool[values.Length];
         for (int i = 0; i < values.Length; i++)
         {
@@ -97,11 +100,11 @@ public void SetPseudoCode(string[] lines)
             bar.transform.localScale = new Vector3(barWidth, height, barWidth);
 
             // Позиция — важно!
-            bar.transform.localPosition = new Vector3(
-                i * (barWidth + spacing),
-                height / 2f,   // ставим нижнюю грань на y = 0
-                0
-            );
+bar.transform.localPosition = new Vector3(
+    i * (barWidth + spacing) + horizontalOffset,
+    height / 2f,
+    0
+);
 
             bars.Add(bar);
         }
