@@ -29,6 +29,6 @@ public class AnimationSettings : MonoBehaviour
     public void ChangeSpeed()
     {
         Speed = speedSlider.value;
-        sortSpeedText.text = $"Скорость сортировки: {Speed:0.0}x";
+        sortSpeedText.text = $"Скорость:";
     }
 }
