@@ -19,12 +19,13 @@ public void HighlightPseudoCodeLine(int line)
 
     for (int i = 0; i < pseudoCodeLines.Length; i++)
     {
-        pseudoCodeLines[i].color = Color.white;
+        pseudoCodeLines[i].color = Color.grey;
     }
 
     if (line >= 0 && line < pseudoCodeLines.Length)
         pseudoCodeLines[line].color = Color.yellow;
 }
+
 public void HighlightHeap(int root, int left, int right)
 {
     // Сначала возвращаем обычные цвета
