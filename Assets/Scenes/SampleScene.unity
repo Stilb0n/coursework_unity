@@ -413,8 +413,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -169.34, y: -43.0314}
-  m_SizeDelta: {x: 609.679, y: 522.9658}
+  m_AnchoredPosition: {x: -207.87418, y: 30.149}
+  m_SizeDelta: {x: 569.3358, y: 450.59}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &135973504
 MonoBehaviour:
@@ -3407,7 +3407,7 @@ GameObject:
   - component: {fileID: 708191269}
   - component: {fileID: 708191268}
   m_Layer: 5
-  m_Name: CompareButton
+  m_Name: "\u0411\u044B\u0441\u0442\u0440\u043E\u0435 \u0441\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u0435"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3713,8 +3713,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 283.84, y: 502.91}
-  m_SizeDelta: {x: 62.479, y: 40.107}
+  m_AnchoredPosition: {x: 263.7, y: 433.1}
+  m_SizeDelta: {x: 55.808, y: 32.6706}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &766340210
 MonoBehaviour:
@@ -5053,16 +5053,23 @@ MonoBehaviour:
   m_MultiSelect: 0
   m_Options:
     m_Options:
-    - m_Text: GenerateRandomArray
+    - m_Text: "\u0421\u0433\u0435\u043D\u0435\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439 \u043C\u0430\u0441\u0441\u0438\u0432"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: GenerateAlmostSortedArray
+    - m_Text: "\u0421\u0433\u0435\u043D\u0435\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        \u043F\u043E\u0447\u0442\u0438 \u043E\u0442\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0439
+        \u043C\u0430\u0441\u0441\u0438\u0432"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: GenerateReverseSortedArray
+    - m_Text: "\u0421\u0433\u0435\u043D\u0435\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        \u043E\u0431\u0440\u0430\u0442\u043D\u043E \u043E\u0442\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0439
+        \u043C\u0430\u0441\u0441\u0438\u0432"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: GenerateFewUniqueArray
+    - m_Text: "\u0421\u0433\u0435\u043D\u0435\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        \u0431\u043B\u0438\u0437\u043A\u0438\u0439 \u043F\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F\u043C
+        \u043C\u0430\u0441\u0441\u0438\u0432"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
@@ -6309,7 +6316,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -1.9, y: -30.5}
+  m_AnchoredPosition: {x: -33.4, y: -25.9}
   m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1309864226
@@ -6360,8 +6367,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7188,7 +7195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1456318815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7306,7 +7313,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CompareButton
+  m_text: "\u0411\u044B\u0441\u0442\u0440\u043E\u0435 \u0441\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u0435
+    \u0432\u0441\u0435\u0445 \u0430\u043B\u0433\u043E\u0440\u0438\u0442\u043C\u043E\u0432"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7758,7 +7766,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GenerateRandomArray
+  m_text: "\u0421\u0433\u0435\u043D\u0435\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+    \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439 \u043C\u0430\u0441\u0441\u0438\u0432"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
